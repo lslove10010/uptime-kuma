@@ -45,4 +45,4 @@ RUN set -eux && \
 # For nscd
 COPY ./docker/etc/nscd.conf /etc/nscd.conf
 COPY ./docker/etc/sudoers /etc/sudoers
-
+USER 10014
