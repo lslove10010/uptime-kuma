@@ -85,6 +85,12 @@ const server = UptimeKumaServer.getInstance();
 const io = module.exports.io = server.io;
 const app = server.app;
 
+// 导出 Vercel 兼容的函数
+module.exports = (req, res) => {
+  server.app(req, res);
+};
+
+
 log.debug("server", "Importing Monitor");
 const Monitor = require("./model/monitor");
 const User = require("./model/user");
@@ -1876,11 +1882,4 @@ let unexpectedErrorHandler = (error, promise) => {
 process.addListener("unhandledRejection", unexpectedErrorHandler);
 process.addListener("uncaughtException", unexpectedErrorHandler);
 
-// 确保 app 是 Express 应用实例
-const app = require('./app');
-
-// 导出 Vercel 兼容的函数
-module.exports = (req, res) => {
-  app(req, res);
-};
 
